@@ -1,0 +1,23 @@
+{
+  "name": "booba-robot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SalvaCrea/Booba-The-Robot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SalvaCrea/Booba-The-Robot/issues"
+  },
+  "homepage": "https://github.com/SalvaCrea/Booba-The-Robot#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "onoff": "^3.0.2"
+  }
+}
