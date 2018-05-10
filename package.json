@@ -1,7 +1,7 @@
 {
   "name": "booba-robot",
   "version": "1.0.0",
-  "description": "",
+  "description": "Little Robot With Rapsberry",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/SalvaCrea/Booba-The-Robot#readme",
   "dependencies": {
+    "child_process": "^1.0.2",
     "express": "^4.16.3",
     "onoff": "^3.0.2"
   }
