@@ -1,10 +1,8 @@
 var express = require('express');
 var Gpio    = require('onoff').Gpio;
-
-var app     = express();
-
 var exec    = require('child_process').exec;
 
+var app     = express();
 var ledTest = require ('./src/led-test');
 
 ledTest.initLed(17);
@@ -25,7 +23,7 @@ app.get('/toggle-led', function (req, res) {
 });
 
 app.get('/auto-led', function (req, res) {
-    ledTest.autoLed(500);
+    ledTest.autoLed(300);
     res.send('Motor Tourne');
 });
 

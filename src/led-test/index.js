@@ -14,14 +14,14 @@ app.initLed = function (led = 17) {
     this.led = new Gpio(led, 'out');
 }
 
-app.toggleLed = function () { //function to start blinking
-      if (led.readSync() === 0) { //check the pin state, if the state is 0 (or off)
-            led.writeSync(1); //set pin state to 1 (turn led on)
-            return true;
-      } else {
-            led.writeSync(0); //set pin state to 0 (turn led off)
-            return false;
-      }
+app.toggleLed = function () {
+    if (led.readSync() === 0) {
+        led.writeSync(1);
+        return true;
+    } else {
+        led.writeSync(0);
+        return false;
+    }
 }
 
 app.autoLed = function (timeRepeat = 1000) {
