@@ -11,12 +11,13 @@ function blinkLED() { //function to start blinking
       } else {
             led.writeSync(0); //set pin state to 0 (turn led off)
       }
+      res.send('Led Allumée !');
 }
 
 function endBlink() { //function to stop blinking
-      clearInterval(blinkInterval); // Stop blink intervals
       led.writeSync(0); // Turn led off
       led.unexport(); // Unexport GPIO to free resources
+      res.send('Led éteinte !');
 }
 
 app.get('/', function (req, res) {
