@@ -1,36 +1,37 @@
 var express = require('express');
+var Gpio    = require('onoff').Gpio;
+
 var app     = express();
+
 var exec    = require('child_process').exec;
 
-var Gpio    = require('onoff').Gpio;
-var led     = new Gpio(17, 'out');
+var ledTest = require ('./src/led-test');
 
-function blinkLED() { //function to start blinking
-      if (led.readSync() === 0) { //check the pin state, if the state is 0 (or off)
-            led.writeSync(1); //set pin state to 1 (turn led on)
-      } else {
-            led.writeSync(0); //set pin state to 0 (turn led off)
-      }
-}
-
-function endBlink() { //function to stop blinking
-      led.writeSync(0); // Turn led off
-      led.unexport(); // Unexport GPIO to free resources
-
-}
+ledTest.initLed(17);
 
 app.get('/', function (req, res) {
       res.send('Hello World!');
 });
 
-app.get('/on-led', function (req, res) {
-      blinkLED();
-      res.send('allumée !');
+// déclaration de la route
+app.get('/toggle-led', function (req, res) {
+      // si la function toggleLed() return true, Alors il vient d'allumer la led.
+    if (ledTest.toggleLed()) {
+        // retourne avec une réponse http avec "Allumée" dans sont le contenu du body
+        res.send('allumée !');
+    } else {
+        res.send('éteinte !');
+    }
 });
 
-app.get('/off-led', function (req, res) {
-      endBlink();
-      res.send('Led éteinte !');
+app.get('/auto-led', function (req, res) {
+    ledTest.autoLed(500);
+    res.send('Motor Tourne');
+});
+
+app.get('/auto-led-kill', function (req, res) {
+    ledTest.stopAutoLed();
+    res.send('Motor Tourne');
 });
 
 app.get('/update', function (req, res) {
@@ -45,6 +46,7 @@ app.get('/reboot', function (req, res) {
     } )
 });
 
+// on lance notre serveur sur le port 3000.
 app.listen(3000, function () {
-      console.log('Example app listening on port 3000!');
+      console.log('Votre serveur http est bien lancé');
 });
