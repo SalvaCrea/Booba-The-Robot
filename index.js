@@ -39,6 +39,12 @@ app.get('/update', function (req, res) {
     } )
 });
 
+app.get('/reboot', function (req, res) {
+    exec('reboot',function (err, stdout, stderr) {
+        res.send('Update Do It');
+    } )
+});
+
 app.listen(3000, function () {
       console.log('Example app listening on port 3000!');
 });
