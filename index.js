@@ -9,7 +9,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/on-led', function (req, res) {
-      led.writeSync(value);
+      led.writeSync(1);
 });
 
 app.listen(3000, function () {
