@@ -2,9 +2,11 @@
   "name": "booba-robot",
   "version": "1.0.0",
   "description": "Little Robot With Rapsberry",
+  "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -17,8 +19,18 @@
   },
   "homepage": "https://github.com/SalvaCrea/Booba-The-Robot#readme",
   "dependencies": {
+    "bootstrap": "^4.1.1",
     "child_process": "^1.0.2",
     "express": "^4.16.3",
-    "onoff": "^3.0.2"
+    "lodash": "^4.17.10",
+    "lodash.clonedeep": "^4.5.0",
+    "node-gyp": "^3.6.2",
+    "node-sass": "^4.9.0",
+    "onoff": "^3.0.2",
+    "pigpio": "^1.0.0",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "rebuild": "^0.1.2",
+    "socket.io": "^2.1.0"
   }
 }

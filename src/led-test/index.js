@@ -4,12 +4,15 @@ var led     = new Gpio(17, 'out');
 /**
  * Application prototype.
  */
-
 var app = exports = module.exports = {};
 
 app.led = null;
 app.action = null;
 
+/**
+ * Set Port Gpio
+ * @param  {Number} [led=17] [description]
+ */
 app.initLed = function (led = 17) {
     this.led = new Gpio(led, 'out');
 }
