@@ -8,7 +8,10 @@ var app = exports = module.exports = {};
 app.motor = null;
 app.action = null;
 app.pulseWidth = 1000;
-
+app.pulseWithLimit = {
+    max: 2500,
+    min: 700
+};
 /**
  * Set Port Gpio
  * @param  {Number} [led=26] [description]
@@ -30,21 +33,37 @@ app.turn = function () {
         app.stopTurn();
     }
 }
+
 app.turnLeft = function (size = 100) {
-    this.pulseWidth = this.pulseWidth - size;
-    this.turn();
+    let newPulseWith = this.pulseWidth - size;
+    if (newPulseWith >= this.pulseWithLimit.min) {
+        this.pulseWidth = newPulseWith;
+        this.turn();
+        return true;
+    } else {
+        console.log('Min Pulse Limit reached');
+        return false;
+    }
 }
 
 app.turnRight = function (size = 100) {
-    this.pulseWidth = this.pulseWidth + size;
-    this.turn();
+    let newPulseWith = this.pulseWidth + size;
+    if (newPulseWith <= this.pulseWithLimit.max) {
+        this.pulseWidth = newPulseWith;
+        this.turn();
+        return true;
+    } else {
+        console.log('Max Pulse Limit reached');
+        return false;
+    }
 }
 
 app.startTurn = function (direction = 'right', speed = 700) {
     var self = this;
     this.action = setInterval( function() {
-        if (direction == 'right')   self.turnRight();
-        if (direction == 'left')    self.turnLeft();
+        if (direction == 'right')   response = self.turnRight();
+        if (direction == 'left')    response = self.turnLeft();
+        if (response) app.stopTurn;
     }, speed);
 }
 

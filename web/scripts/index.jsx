@@ -2,19 +2,13 @@ import _ from 'lodash'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SocketClient from 'socket.io-client';
-import dataService from "./src/dataService";
+import DataService from "./src/DataService";
 
 import Menu from "./components/Menu";
 import MotorController from "./components/MotorController";
+import SensorController from "./components/SensorController";
 
-const socket = SocketClient('http://192.168.1.15:3000');
-socket.emit('connection', 'qsdsqd');
-dataService.set('socket', socket);
-
-function test() {
-    socket.emit('connection', 'qsdsqd');
-}
-test();
+DataService.set('socket', SocketClient('http://192.168.1.15:3000'));
 
 const App = () => (
     <div className="App container-fluid">

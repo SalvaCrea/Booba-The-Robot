@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-var dataService = {
+var DataService = {
     data: {},
     set: function(key, value) {
         this.data[key] = value;
@@ -15,4 +15,4 @@ var dataService = {
     }
 }
 
-export default dataService;
+export default DataService;
