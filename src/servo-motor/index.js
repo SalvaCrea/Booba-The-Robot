@@ -71,13 +71,14 @@ ServoMotor.prototype.stopTurn = function () {
 }
 
 ServoMotor.prototype.declareSocket = function() {
+    var self = this;
 
     io.on('connection', function(socket){
         socket.on('turn left', function(msg){
-            currentServoMotor.turnLeft(50);
+            self.turnLeft(50);
         });
         socket.on('turn right', function(msg){
-            currentServoMotor.turnRight(50);
+            self.turnRight(50);
         });
     });
 
