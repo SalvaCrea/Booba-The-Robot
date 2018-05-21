@@ -1,4 +1,4 @@
-import _ from 'lodash'
+var _ = require('lodash');
 
 /**
  * A little store of data
@@ -29,4 +29,4 @@ var dataService = {
     }
 }
 
-export default dataService;
+module.exports = dataService;

@@ -1,40 +1,39 @@
-var Gpio = require('pigpio').Gpio;
+var Gpio        = require('pigpio').Gpio;
+var dataService = require(appRoot + '/src/data-service');
+var io          = dataService.get('io');
 
 /**
 * Application prototype.
 */
-var app = exports = module.exports = {};
+class ServoMotor {
+    constructor(gpioPort) {
+        this.motor = new Gpio(gpioPort, {mode: Gpio.OUTPUT});
+        this.turn();
+        this.declareSocket();
+    }
+}
 
-app.motor = null;
-app.action = null;
-app.pulseWidth = 1000;
-app.pulseWithLimit = {
+ServoMotor.prototype.motor = null;
+ServoMotor.prototype.action = null;
+ServoMotor.prototype.pulseWidth = 1000;
+ServoMotor.prototype.pulseWithLimit = {
     max: 2500,
     min: 700
 };
-/**
- * Set Port Gpio
- * @param  {Number} [led=26] [description]
- */
-app.initMotor = function (GpioPort = 26) {
-    this.motor = new Gpio(GpioPort, {mode: Gpio.OUTPUT});
-    app.turn();
-}
 
-app.turn = function () {
-    if (!app.motor) {
-        console.log('Port Gpio Undefined');
+ServoMotor.prototype.turn = function () {
+    if (!this.motor) {
         return false;
     }
     try {
         this.motor.servoWrite(this.pulseWidth);
     }
     catch(error) {
-        app.stopTurn();
+        this.stopTurn();
     }
 }
 
-app.turnLeft = function (size = 100) {
+ServoMotor.prototype.turnLeft = function (size = 100) {
     let newPulseWith = this.pulseWidth - size;
     if (newPulseWith >= this.pulseWithLimit.min) {
         this.pulseWidth = newPulseWith;
@@ -46,7 +45,7 @@ app.turnLeft = function (size = 100) {
     }
 }
 
-app.turnRight = function (size = 100) {
+ServoMotor.prototype.turnRight = function (size = 100) {
     let newPulseWith = this.pulseWidth + size;
     if (newPulseWith <= this.pulseWithLimit.max) {
         this.pulseWidth = newPulseWith;
@@ -58,15 +57,30 @@ app.turnRight = function (size = 100) {
     }
 }
 
-app.startTurn = function (direction = 'right', speed = 700) {
+ServoMotor.prototype.startTurn = function (direction = 'right', speed = 700) {
     var self = this;
     this.action = setInterval( function() {
         if (direction == 'right')   response = self.turnRight();
         if (direction == 'left')    response = self.turnLeft();
-        if (response) app.stopTurn;
+        if (response) this.stopTurn;
     }, speed);
 }
 
-app.stopTurn = function () {
+ServoMotor.prototype.stopTurn = function () {
     clearInterval(this.action);
 }
+
+ServoMotor.prototype.declareSocket = function() {
+
+    io.on('connection', function(socket){
+        socket.on('turn left', function(msg){
+            currentServoMotor.turnLeft(50);
+        });
+        socket.on('turn right', function(msg){
+            currentServoMotor.turnRight(50);
+        });
+    });
+
+}
+
+module.exports = ServoMotor;

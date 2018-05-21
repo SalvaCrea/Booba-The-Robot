@@ -1,26 +1,25 @@
-var app        = require('express')();
-var http       = require('http').Server(app);
-var io         = require('socket.io')(http);
-var exec       = require('child_process').exec;
-var path       = require('path');
-var servoMotor = require ('./src/servo-motor');
-var Sensor = require ('./src/sensor');
+var dataService = require ('./src/data-service');
 
+var path        = require('path');
+global.appRoot  = path.resolve(__dirname);
 
-var currentSensor = new Sensor();
+var app         = require('express')();
+var http        = require('http').Server(app);
+var io          = require('socket.io')(http);
+var exec        = require('child_process').exec;
 
+dataService.set('app', app);
+dataService.set('io', io);
 
+var ServoMotor  = require ('./src/servo-motor');
+var Sensor      = require ('./src/sensor');
+var Motor       = require ('./src/motor');
+var Camera      = require ('./src/camera');
 
-servoMotor.initMotor(26);
+var currentMotor = new Motor(4);
+var currentServoMotor = new ServoMotor(26);
+var currentCamera = new Camera();
 
-io.on('connection', function(socket){
-    socket.on('turn left', function(msg){
-        servoMotor.turnLeft(50);
-    });
-    socket.on('turn right', function(msg){
-        servoMotor.turnRight(50);
-    });
-});
 
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/dist/index.html'));
