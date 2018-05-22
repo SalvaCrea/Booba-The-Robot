@@ -7,7 +7,7 @@ var proc;
 var express = require('express');
 var path = require('path');
 
-app.use('/', express.static(path.join(__dirname, 'stream')));
+app.use('/', express.static(path.join(appRoot, 'stream')));
 
 class Camera {
     constructor() {
@@ -22,8 +22,10 @@ Camera.prototype.startStreaming = function () {
         return;
     }
 
-    var args = ["-w", "640", "-h", "480", "-o", appRoot + "/stream/image_stream.jpg", "-t", "999999999", "-tl", "100"];
+    var args = ["-w", "640", "-h", "480", "-o", appRoot + "/dist/image_stream.jpg", "-t", "999999999", "-tl", "100"];
     proc = spawn('raspistill', args);
+
+    console.log(args.join(" "));
 
     console.log('Watching for changes...');
 

@@ -4,11 +4,11 @@ import ReactDOM from 'react-dom';
 import SocketClient from 'socket.io-client';
 import DataService from "./src/DataService";
 
-import Menu from "./components/Menu";
-import ServoMotorController from "./components/ServoMotorController";
-import SensorController from "./components/SensorController";
-import Motor from '/src/motor/front/component';
-import CameraController from '/src/camera/front/component';
+import Menu from "./components/Menu.jsx";
+import ServoMotorController from "./components/ServoMotorController.jsx";
+import SensorController from "./components/SensorController.jsx";
+import Motor from '../../src/motor/front/component.jsx';
+import CameraController from '../../src/camera/front/component.jsx';
 
 DataService.set('socket', SocketClient('http://192.168.1.15:3000'));
 
@@ -24,7 +24,3 @@ const App = () => (
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
-// Hot Module Replacement
-if (module.hot) {
-    module.hot.accept();
-}

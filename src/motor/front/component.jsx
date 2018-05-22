@@ -1,5 +1,5 @@
 import React from "react";
-import ds from "/web/scripts/src/DataService.js";
+import ds from "../../data-service";
 
 class MotorController extends React.Component {
     start() {
