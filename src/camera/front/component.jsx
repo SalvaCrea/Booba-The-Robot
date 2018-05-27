@@ -1,6 +1,6 @@
 import React from "react";
 import $ from "jquery";
-import ds from "../../data-service";
+import store from "basic-store-js";
 
 class CameraController extends React.Component {
     constructor(props) {
@@ -9,7 +9,7 @@ class CameraController extends React.Component {
         this.state  = {
             srcStreaming : ''
         }
-        ds.get('socket').on('liveStream', function(url) {
+        store.get('socket').on('liveStream', function(url) {
             self.setSrcStreaming(url)
         });
     }
@@ -19,10 +19,10 @@ class CameraController extends React.Component {
         }));
     }
     startStream() {
-        ds.get('socket').emit('start-stream');
+        store.get('socket').emit('start-stream');
     }
     stopSteam() {
-        ds.get('socket').emit('start-stream');
+        store.get('socket').emit('start-stream');
         this.setState(prevState => ({
           srcStreaming: ''
         }));

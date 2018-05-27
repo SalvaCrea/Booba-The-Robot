@@ -1,12 +1,12 @@
 import React from "react";
-import ds from "../../data-service";
+import store from "basic-store-js";
 
 class MotorController extends React.Component {
     start() {
-        ds.get('socket').emit('start motor', true);
+        store.get('socket').emit('start motor', true);
     }
     stop() {
-        ds.get('socket').emit('stop motor', false);
+        store.get('socket').emit('stop motor', false);
     }
     render() {
         return [

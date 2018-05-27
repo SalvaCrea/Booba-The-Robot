@@ -1,6 +1,5 @@
 var store   = require('basic-store-js');
 var spawn   = require('child_process').spawn;
-var exec    = require('child_process').exec;
 var fs      = require('fs');
 var io      = store.get('io');
 var app     = store.get('app');

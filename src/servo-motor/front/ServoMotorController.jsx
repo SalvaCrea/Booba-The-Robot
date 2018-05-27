@@ -1,14 +1,14 @@
 import React from "react";
-import ds from "../../data-service";
+import store from "basic-store-js";
 
 class ServoMotorController extends React.Component {
     goLeft() {
         console.log('left');
-        ds.get('socket').emit('turn-left', 'left');
+        store.get('socket').emit('turn-left', 'left');
     }
     goRight() {
         console.log('right');
-        ds.get('socket').emit('turn-right', 'right');
+        store.get('socket').emit('turn-right', 'right');
     }
     render() {
         return [
