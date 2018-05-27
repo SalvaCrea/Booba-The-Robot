@@ -1,10 +1,8 @@
-var _ = require('lodash');
-
 /**
  * A little store of data
  * @type {Object}
  */
-var dataService = {
+module.exports = {
     data: {},
     /**
      * Used for stock a variable
@@ -20,14 +18,15 @@ var dataService = {
      * @return {[array, string, object, undefined]}  return the value stored or 'undefined' if not present
      */
     get: function(key) {
-        if (_.isString(key)) {
+        if (typeof key === 'string') {
             if (typeof this.data[key] !== undefined) {
                 return this.data[key];
             }
         }
         return undefined;
+    },
+    remove: function (key) {
+        delete this.data[key];
     }
 }
-
-module.exports = dataService;
 

@@ -1,5 +1,5 @@
-var Gpio        = require('onoff').Gpio;
-var dataService = require (appRoot + '/src/data-service');
+var Gpio  = require('onoff').Gpio;
+var store = require('basic-store-js');
 
 class Motor {
     constructor(gpioPort) {
@@ -26,7 +26,7 @@ Motor.prototype.stop = function () {
 
 Motor.prototype.declareSocket = function () {
     var self = this;
-    dataService.get('io').on('connection', function(socket){
+    store.get('io').on('connection', function(socket){
         socket.on('start motor', function(msg){
             self.start();
         });

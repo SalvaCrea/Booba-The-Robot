@@ -10,11 +10,10 @@ class CameraController extends React.Component {
             srcStreaming : ''
         }
         ds.get('socket').on('liveStream', function(url) {
-            self.liveStream(url)
+            self.setSrcStreaming(url)
         });
     }
-    liveStream(url) {
-        console.log('update');
+    setSrcStreaming(url) {
         this.setState(prevState => ({
           srcStreaming: url
         }));
@@ -22,13 +21,26 @@ class CameraController extends React.Component {
     startStream() {
         ds.get('socket').emit('start-stream');
     }
+    stopSteam() {
+        ds.get('socket').emit('start-stream');
+        this.setState(prevState => ({
+          srcStreaming: ''
+        }));
+    }
     render() {
         return [
-            <div className="wrapper-motor-controller" key="parent">
-                <h6>Camera Controller</h6>
-                <button type="button" className="btn btn-info start" key="start" onClick={this.startStream} >Start Camera</button>
-                <div className="row">
-                    <img src={this.state.srcStreaming} key="screen" id="stream"></img>
+            <div className="wrapper-motor-controller row" key="parent">
+                <div className="col-12">
+                    <h6>Camera Controller</h6>
+                </div>
+                <div className="col-3">
+                    <button type="button" className="btn btn-info start" key="start" onClick={this.startStream} >Start Camera</button>
+                </div>
+                <div className="col-3">
+                    <button type="button" className="btn btn-info start" key="start" onClick={this.stopSteam} >Stop Camera</button>
+                </div>
+                <div className="col-12">
+                    <img src={this.state.srcStreaming} className="img-response" key="screen" id="stream"></img>
                 </div>
             </div>
         ];

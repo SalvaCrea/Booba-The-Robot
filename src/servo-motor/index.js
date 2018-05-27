@@ -1,6 +1,6 @@
-var Gpio        = require('pigpio').Gpio;
-var dataService = require(appRoot + '/src/data-service');
-var io          = dataService.get('io');
+var Gpio  = require('pigpio').Gpio;
+var store = require('basic-store-js');
+var io    = store.get('io');
 
 /**
 * Application prototype.
@@ -21,12 +21,27 @@ ServoMotor.prototype.pulseWithLimit = {
     min: 700
 };
 
+ServoMotor.prototype.declareSocket = function() {
+    var self = this;
+
+    io.on('connection', function(socket){
+        socket.on('turn-left', function(msg){
+            self.turnLeft(50);
+        });
+        socket.on('turn-right', function(msg){
+            self.turnRight(50);
+        });
+    });
+
+}
+
 ServoMotor.prototype.turn = function () {
     if (!this.motor) {
         return false;
     }
     try {
         this.motor.servoWrite(this.pulseWidth);
+        console.log('Servo Motor : Turn');
     }
     catch(error) {
         this.stopTurn();
@@ -68,20 +83,6 @@ ServoMotor.prototype.startTurn = function (direction = 'right', speed = 700) {
 
 ServoMotor.prototype.stopTurn = function () {
     clearInterval(this.action);
-}
-
-ServoMotor.prototype.declareSocket = function() {
-    var self = this;
-
-    io.on('connection', function(socket){
-        socket.on('turn left', function(msg){
-            self.turnLeft(50);
-        });
-        socket.on('turn right', function(msg){
-            self.turnRight(50);
-        });
-    });
-
 }
 
 module.exports = ServoMotor;
