@@ -9,6 +9,7 @@ const htmlPlugin = new HtmlWebPackPlugin({
 module.exports = {
     mode: 'development',
     entry: ['./app-front.jsx', './web/styles/index.scss'],
+
     module: {
         rules: [
             /**

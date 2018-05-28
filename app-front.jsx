@@ -2,15 +2,16 @@ import _ from 'lodash'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SocketClient from 'socket.io-client';
-import store from "basic-store-js";
+import DataService from "./src/data-service";
+
 
 import ServoMotorController from "./src/servo-motor/front/ServoMotorController.jsx";
 import SensorController from "./src/sensor/front/SensorController.jsx";
 import Motor from './src/motor/front/component.jsx';
 import CameraController from './src/camera/front/component.jsx';
-import Menu from "./src/menu/front/Menu.jsx";
+import Menu from './'
 
-store.set('socket', SocketClient('http://192.168.1.15:3000'));
+DataService.set('socket', SocketClient('http://192.168.1.15:3000'));
 
 const App = () => (
     <div className="App container-fluid">
