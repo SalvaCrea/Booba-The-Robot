@@ -3,10 +3,10 @@ import store from "basic-store-js";
 
 class MotorController extends React.Component {
     start() {
-        store.get('socket').emit('start motor', true);
+        store.get('socket').emit('start-motor');
     }
     stop() {
-        store.get('socket').emit('stop motor', false);
+        store.get('socket').emit('stop-motor');
     }
     render() {
         return [

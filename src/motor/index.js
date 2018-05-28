@@ -17,20 +17,22 @@ Motor.gpioPort = null;
 Motor.motor = null;
 
 Motor.prototype.start = function () {
+    console.log('Motor : Start');
     this.motor.writeSync(1);
 }
 
 Motor.prototype.stop = function () {
+    console.log('Motor : Stop');
     this.motor.writeSync(0);
 }
 
 Motor.prototype.declareSocket = function () {
     var self = this;
     store.get('io').on('connection', function(socket){
-        socket.on('start motor', function(msg){
+        socket.on('start-motor', function(msg){
             self.start();
         });
-        socket.on('stop motor', function(msg){
+        socket.on('stop-motor', function(msg){
             self.stop();
         });
     });
